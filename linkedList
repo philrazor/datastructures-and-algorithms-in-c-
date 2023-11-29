@@ -1,0 +1,52 @@
+function linkedList(){
+    var length = 0   //to keep track of length of list
+    var head =  null  //to know begining of a list 
+    
+    //create the Node with elemnt and next pointer 
+    this.Node=function(element){
+        this.element = element
+        this.next = null
+    }
+    
+    this.size = function(){
+        return length
+    }
+    this.head = function(){
+        return head
+    }
+    
+    //adding an element to the node both head or current node
+    this.add = function(element){
+        node = new Node(element)
+        if(head===null){
+            head = node
+        }else{
+            var currentNode = node
+            
+             while(currentNode.next){
+            currentNode = currentNode.next
+          } 
+          currentNode.next = node 
+        }
+        length++
+    }
+    
+    
+    //remove node
+    this.remove= function(element){
+        currentNode = head
+        previousNode
+        
+        if(element===currentNode){
+            head = currentNode.next   
+    }else{
+        while(currentNode.element!==element){
+            previousNode = currentNode
+            currentNode = currentNode.next
+        }
+        previousNode.next = currentNode.next
+    }
+    length--
+  }
+}
+
