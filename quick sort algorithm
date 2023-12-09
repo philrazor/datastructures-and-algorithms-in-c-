@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+void quick_sort(int array[], int low, int high);
+void print_array(int array[], int size);
+
+int main(void) {
+    int array_to_sort[] = {2, 4, 9, 8, 6, 3, 1};
+    int size_of_array = 7;
+
+    quick_sort(array_to_sort, 0, size_of_array - 1);
+    print_array(array_to_sort, size_of_array);
+
+    return 0;
+}
+
+void quick_sort(int array[], int low, int high) {
+    if (low < high) {
+        int pivot = array[high]; // Choosing the pivot as the last element
+        int i = (low - 1); // Index of smaller element
+
+        for (int j = low; j <= high - 1; j++) {
+            if (array[j] < pivot) {
+                i++;
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+        int temp = array[i + 1];
+        array[i + 1] = array[high];
+        array[high] = temp;
+
+        int pi = i + 1; // Partitioning index
+
+        // Recursive calls for the sub-arrays before and after the partition
+        quick_sort(array, low, pi - 1);
+        quick_sort(array, pi + 1, high);
+    }
+}
+
+void print_array(int array[], int size) {
+    printf("Sorted Array: ");
+    for (int i = 0; i < size; i++) {
+        printf("%i ", array[i]);
+    }
+    printf("\n");
+}
