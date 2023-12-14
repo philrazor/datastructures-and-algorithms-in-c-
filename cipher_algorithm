@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <ctype.h>
+
+#define ALPHABET_SIZE 26
+
+char substitute(char ch, char key[]) {
+    if (isalpha(ch)) {
+        int index = toupper(ch) - 'A';
+        return isupper(ch) ? toupper(key[index]) : tolower(key[index]);
+    }
+    return ch;
+}
+
+void encrypt(char plaintext[], char key[]) {
+    for (int i = 0; plaintext[i] != '\0'; ++i) {
+        plaintext[i] = substitute(plaintext[i], key);
+    }
+}
+
+void decrypt(char ciphertext[], char key[]) {
+    char reverseKey[ALPHABET_SIZE + 1] = {0};
+
+    // Create reverse key for decryption
+    for (int i = 0; i < ALPHABET_SIZE; ++i) {
+        int index = toupper(key[i]) - 'A';
+        reverseKey[index] = 'A' + i;
+    }
+
+    for (int i = 0; ciphertext[i] != '\0'; ++i) {
+        ciphertext[i] = substitute(ciphertext[i], reverseKey);
+    }
+}
+
+int main() {
+    char key[] = "JTREKYAVOGDXPSNCUIZLFBMWHQ";
+    char plaintext[] = "HELLO";
+    char ciphertext[] = "VKXXN";
+
+    // Encrypt the plaintext
+    encrypt(plaintext, key);
+    printf("Plaintext encrypted: %s\n", plaintext);
+
+    // Decrypt the ciphertext
+    decrypt(ciphertext, key);
+    printf("Ciphertext decrypted: %s\n", ciphertext);
+
+    return 0;
+}
